@@ -109,3 +109,20 @@
 + var result5 = 5 - "2"; // 3，因为"2"被转换成了 2
 + var result6 = 5 - null; // 5，因为 null 被转换成了 0 
 
+*任何操作数与 NaN 进行关系比较，结果都是 false。*
+
++ 即使两个操作数都是 NaN，相等操作符也返回 false；因为按照规则，NaN 不等于 NaN。
++ null 和 undefined 是相等的。
++ 要比较相等性之前，不能将 null 和 undefined 转换成其他任何值。
++ 如果两个操作数都是对象，则比较它们是不是同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回 true；否则，返回 false。
++ null == undefined //true 
++ "NaN" == NaN //false 
++ 5 == NaN //false 
++ NaN == NaN //false 
++ NaN != NaN //true 
++ true == 1 //true
++ true == 2 //false
++ undefined == 0 //false
++ null == 0 //false
++ "5"==5 //true
++ false == 0 true 
