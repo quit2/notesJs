@@ -125,4 +125,28 @@
 + undefined == 0 //false
 + null == 0 //false
 + "5"==5 //true
-+ false == 0 true 
++ false == 0 //true 
+
+
+break 和 continue 语句用于在循环中精确地控制代码的执行。其中，break 语句会立即退出循环，强制继续执行循环后面的语句。而 continue 语句虽然也是立即退出循环，但退出循环后会从循环的顶部继续执行。
+
++ var num = 0;
++ for (var i=1; i < 10; i++) {
++ if (i % 5 == 0) {
++ break;
++ }
++ num++;
++ }
++ alert(num); //4 
+
++ var num = 0;
++ for (var i=1; i < 10; i++) {
++ if (i % 5 == 0) {
++ continue;
++ }
++ num++;
++ }
++ alert(num); //8
+
+###### switch
+break 关键字会导致代码执行流跳出 switch 语句。如果省略 break 关键字，就会导致执行完当前 case 后，继续执行下一个 case。最后的 default 关键字则用于在表达式不匹配前面任何一种情形的时候，执行机动代码（因此，也相当于一个 else 语句）。
