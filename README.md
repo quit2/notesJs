@@ -74,8 +74,38 @@
 + f--; // 值变成 0.10000000000000009（由于浮点舍入错误所致）
 + o--; // 值变成数值-2
 
-以一个加号（+）表示，放在数值前面，对数值不会产生任何影响.
+以一个加号（+）表示，放在数值前面，对数值不会产生任何影响,在对非数值应用一元加操作符时，该操作符会像 Number()转型函数一样对这个值执行转换。
+换句话说，布尔值 false 和 true 将被转换为 0 和 1，字符串值会被按照一组特殊的规则进行解析，而
+对象是先调用它们的 valueOf()和（或）toString()方法，再转换得到的值。在将一元减操作符应用于数值时，该值会变成负数（如上面的例子所示）。而当应用于非数值时，一元减操作符遵循与一元加操作符相同的规则，最后再将得到的数值转换为负数.
 
 + 如下面的例子所示：
 + var num = 25;
 + num = +num; // 仍然是 25 
+
+######  逻辑非
++ alert(!false); // true
++ alert(!"blue"); // false
++ alert(!0); // true
++ alert(!NaN); // true
++ alert(!""); // true
++ alert(!12345); // false 
+
++ alert(!!"blue"); //true
++ alert(!!0); //false
++ alert(!!NaN); //false
++ alert(!!""); //false
++ alert(!!12345); //true 
+
+###### 操作符
++ var num1 = 5;
++ var num2 = 10;
++ var message = "The sum of 5 and 10 is " + num1 + num2;
++ alert(message); // "The sum of 5 and 10 is 510" 
+
++ var result1 = 5 - true; // 4，因为 true 被转换成了 1
++ var result2 = NaN - 1; // NaN
++ var result3 = 5 - 3; // 2
++ var result4 = 5 - ""; // 5，因为"" 被转换成了 0
++ var result5 = 5 - "2"; // 3，因为"2"被转换成了 2
++ var result6 = 5 - null; // 5，因为 null 被转换成了 0 
+
