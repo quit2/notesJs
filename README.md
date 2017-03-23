@@ -27,3 +27,33 @@
 + var num2 = parseInt("10", 8); //8 （按八进制解析）
 + var num3 = parseInt("10", 10); //10 （按十进制解析）
 + var num4 = parseInt("10", 16); //16 （按十六进制解析）
+
+###### toString()转换为字符串
++ var age = 11;
++ var ageAsString = age.toString(); // 字符串"11"
++ var found = true;
++ var foundAsString = found.toString(); // 字符串"true" 
++ var num = 10;
++ alert(num.toString()); // "10"
++ alert(num.toString(2)); // "1010"
++ alert(num.toString(8)); // "12"
++ alert(num.toString(10)); // "10"
++ alert(num.toString(16)); // "a"
++ var value1 = 10;
++ var value2 = true;
++ var value3 = null;
++ var value4;
++ alert(String(value1)); // "10"
++ alert(String(value2)); // "true"
++ alert(String(value3)); // "null"
++ alert(String(value4)); // "undefined" 
+
+###### object
++ Object 的每个实例都具有下列属性和方法。
++ constructor：保存着用于创建当前对象的函数。对于前面的例子而言，构造函数（constructor）就是 Object()。
++ hasOwnProperty(propertyName)：用于检查给定的属性在当前对象实例中（而不是在实例的原型中）是否存在。其中，作为参数的属性名（propertyName）必须以字符串形式指定（例如：o.hasOwnProperty("name")）。
++ isPrototypeOf(object)：用于检查传入的对象是否是传入对象的原型（第 5 章将讨论原型）。
++ propertyIsEnumerable(propertyName)：用于检查给定的属性是否能够使用 for-in 语句来枚举。与 hasOwnProperty()方法一样，作为参数的属性名必须以字符串形式指定。
++ toLocaleString()：返回对象的字符串表示，该字符串与执行环境的地区对应。
++ toString()：返回对象的字符串表示。
++ valueOf()：返回对象的字符串、数值或布尔值表示。通常与 toString()方法的返回值相同。
