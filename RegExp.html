@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+  <div id="box">
+    
+  </div>
+  <script type="text/javascript">
+        var text = "mom and dad and baby"; 
+        var pattern = /mom( and dad( and baby)?)?/gi; 
+ 
+        var matches = pattern.exec(text); 
+        console.log(matches.index); //0
+        console.log(matches.input); //mom and dad and baby
+        console.log(matches[0]); //mom and dad and baby
+        console.log(matches[1]); //and dad and baby
+        console.log(matches[2]); //and baby
+
+        console.log(matches); //["mom and dad and baby", " and dad and baby", " and baby", index: 0, input: "mom and dad and baby"]
+
+
+
+        var text2 = "cat, bat, sat, fat";
+        var pattern2 = /.at/g; 
+        
+        var match = pattern2.exec(text2); 
+        console.log(match.index); //0
+        console.log(match); //["cat", index: 0, input: "cat, bat, sat, fat"]
+        match = pattern2.exec(text2); 
+        console.log(match.index); //5
+        
+
+
+        match = pattern2.exec(text2); 
+        console.log(match.index); //10
+        console.log(match);  //["sat", index: 10, input: "cat, bat, sat, fat"]
+        match = pattern2.exec(text2); 
+        console.log(match.index); //15
+ 
+  </script>
+</body>
+
+</html>
