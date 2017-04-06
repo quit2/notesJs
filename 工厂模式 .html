@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+  <div id="box">
+    
+  </div>
+  <script type="text/javascript">
+      function creatPerson(name, age, job){
+        var o = new Object();
+        o.name = name;
+        o.age = age;
+        o.job = job;
+        o.sayName = function(){
+            alert(this.name);
+        }
+        return o;
+      }
+      var person1 = creatPerson("Nicholas", 29, "Software Engineer");
+      var person2 = creatPerson("Greg", 27, "Doctor");
+      console.log(person1);
+      console.log(person2.sayName; //function (){ alert(this.name); }
+      console.log(person2.sayName()); //Greg
+  </script>
+</body>
+
+</html>

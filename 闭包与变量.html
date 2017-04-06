@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+  <div id="box">
+    
+  </div>
+  <script type="text/javascript">
+    function createFunctions(){     
+      var result = new Array(); 
+
+      for (var i=0; i < 10; i++){     
+        console.log(i);// 1 2 3 4 5 6 7 8 9
+        result[i] = function(){   //  闭包 直接把闭包赋值给数组         
+          return i;         
+        };     
+      }
+      console.log(result[3]); // function () { return i; }
+      return result; 
+    }  
+
+    //通过创建另一个匿名函数强制让闭包的行为符合预期
+    function createFunctions(){     
+      var result = new Array(); 
+
+      for (var i=0; i < 10; i++){     
+        console.log(i);// 1 2 3 4 5 6 7 8 9
+        result[i] = function(num){   //定义了一个匿名函数，并将立即执行该匿名函数的结果赋给数组。          
+          return function(){
+            return num;
+          }
+        }(i);     
+      }
+      console.log(result[3]); // function () { return i; }
+      return result; 
+    }  
+
+    createFunctions();
+  </script>
+</body>
+
+</html>
