@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+  <div id="myBtn">click</div>
+  <script type="text/javascript">
+      var EventUtil = {   
+        
+        addHandler: function(element, type, handler){
+        
+          if (element.addEventListener){   // 使用该方法：传入事件类型、事件处理程序函数和第三个参数 false（表示冒泡阶段）。
+          
+            element.addEventListener(type, handler, false); 
+              
+          }else if (element.attachEvent){   // ie
+          
+            element.attachEvent("on" + type, handler);   
+              
+          }else {    
+          
+            element["on" + type] = handler;  
+
+            //使用 DOM0级方法（在现代浏览器中，应该不会执行这里的代码）。此时，我们使用的是方括号语法来将属性名指定为事件处理程序，或者将属性设置为 null。 
+              
+          }     
+        },     
+        removeHandler: function(element, type, handler){  
+        
+          if (element.removeEventListener){
+          
+            element.removeEventListener(type, handler, false);
+              
+          }else if (element.detachEvent){    
+          
+            element.detachEvent("on" + type, handler); 
+              
+          }else {  
+          
+            element["on" + type] = null;  
+              
+          }     
+        } 
+    };
+    
+    var btn = document.getElementById("myBtn"); 
+    var handler = function(){     
+        alert("Clicked"); 
+    }; 
+    EventUtil.addHandler(btn, "click", handler);   // 增加点击事件 alert Clicked
+ 
+    //这里省略了其他代码 
+    
+    //EventUtil.removeHandler(btn, "click", handler); //取消事件
+      
+  </script>
+</body>
+
+</html>

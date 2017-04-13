@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+  <a id="myBtn" href="http://www.baidu.com" target="_blank">click</a>
+  <script type="text/javascript">
+      var btn = document.getElementById("myBtn"); 
+
+      btn.onclick = function(event){
+        event.preventDefault();  //取消事件的默认行为
+        alert(event.type);     //"click" 
+      };
+
+      btn.addEventListener("click", function(event){
+        event.preventDefault();
+        alert(event.type);     //"click" 
+      }, false);   
+  </script>
+</body>
+
+</html>

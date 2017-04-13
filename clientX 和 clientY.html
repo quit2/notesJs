@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 500px;
+        height: 500px;
+        background: #e2e2e2;
+      }
+    </style>
+</head>
+
+<body>
+  <div id="myBtn"></div>
+  <script type="text/javascript">
+    var div = document.getElementById('myBtn');
+    div.addEventListener('click', function(event){
+        alert("Client coordinates: " + event.clientX + "," + event.clientY);  //客户区坐标位置 
+        //alert("Page coordinates: " + event.pageX + "," + event.pageY);      //页面坐标位置 
+        //在页面没有滚动的情况下，pageX 和 pageY 的值与 clientX 和 clientY 的值相等。 
+    })
+  </script>
+</body>
+
+</html>

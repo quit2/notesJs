@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 100px;
+        height: 100px;
+        background: #e2e2e2;
+      }
+    </style>
+</head>
+
+<body>
+  <a id="myBtn" href="http://www.baidu.com" target="_blank">click</a>
+  <div id="myDiv"></div>
+  <input type="text" value="" placeholder="Hello" id="myText">
+  <script type="text/javascript">
+    var EventUtil = {       
+        addHandler: function(element, type, handler){
+            if (element.addEventListener){
+                element.addEventListener(type, handler, false);  
+            }else if (element.attachEvent){
+                element.attachEvent("on" + type, handler);     
+            }else {    
+                element["on" + type] = handler;     
+            }     
+        }, 
+     
+        getEvent: function(event){         
+            return event ? event : window.event;     
+        }, 
+     
+        getTarget: function(event){         
+            return event.target || event.srcElement;     
+        }, 
+
+        //鼠标事件
+        getButton: function(event){       
+            if (document.implementation.hasFeature("MouseEvents", "2.0")){
+                //支持 DOM 版鼠标事件的浏览器可以通过 hasFearture()方法来检测，         
+                return event.button; 
+            } else {             
+                switch(event.button){ //ie鼠标事件                
+                    case 0:                 
+                    case 1:                 
+                    case 3:                 
+                    case 5:                 
+                    case 7:                     
+                    return 0;                 
+                    case 2:                 
+                    case 6:                     
+                    return 2;                 
+                    case 4:                      
+                    return 1;             
+                }         
+            }     
+        }, 
+
+        //滚轮事件
+        getWheelDelta: function(event){         
+            if (event.wheelDelta){             
+                return (client.engine.opera && client.engine.opera < 9.5 ? -event.wheelDelta : event.wheelDelta); //wheelDelta是120的倍数
+                //在 Opera 9.5之前的版本中，wheelDelta 值的正负号是颠倒的。  
+            }else {  //Firefox支持一个名为 DOMMouseScroll 的类似事件  信息则保存在 detail 属性，这个属性的值是 3 的倍数。
+                return -event.detail * 40;         
+            } 
+        }, 
+      
+        //字符编码 
+        getCharCode: function(event){         
+            if (typeof event.charCode == "number"){             
+                return event.charCode;         
+            } else {             
+                return event.keyCode;         
+            }     
+        }, 
+ 
+      
+        preventDefault: function(event){       
+            if (event.preventDefault){             
+                event.preventDefault();         
+            } else {             
+                event.returnValue = false;         
+            }     
+        },       
+        removeHandler: function(element, type, handler){
+            if (element.removeEventListener){
+              element.removeEventListener(type, handler, false); 
+            }else if (element.detachEvent){    
+              element.detachEvent("on" + type, handler); 
+            }else {  
+              element["on" + type] = null;   
+            }     
+        },
+         
+        stopPropagation: function(event){
+            if (event.stopPropagation){             
+                event.stopPropagation();         
+            } else {             
+                event.cancelBubble = true;         
+            }     
+        } 
+    }; 
+
+    var btn = document.getElementById("myBtn"); 
+    btn.onclick = function(event){     
+        alert("Clicked");     
+        event = EventUtil.getEvent(event);     
+        EventUtil.stopPropagation(event); 
+    }; 
+ 
+    document.body.onclick = function(event){     
+        alert("Body clicked"); 
+    }; 
+
+
+    var div = document.getElementById("myDiv"); 
+    EventUtil.addHandler(div, "mousedown", function(event){     
+        event = EventUtil.getEvent(event);     
+        alert(EventUtil.getButton(event)); 
+    }); 
+ 
+    //滚轮事件
+    EventUtil.addHandler(document, "mousewheel", function(event){     
+        event = EventUtil.getEvent(event);     
+        alert(event.wheelDelta); 
+    }); 
+
+
+    //Firefox支持一个名为 DOMMouseScroll 的类似事件，也是在鼠标滚轮滚动时触发。与 mousewheel 事件一样，DOMMouseScroll 也被视为鼠标事件，因而包含与鼠标事件有关的所有属性。而有关鼠标滚 轮的信息则保存在 detail 属性中，当向前滚动鼠标滚轮时，这个属性的值是-3 的倍数，当向后滚动 鼠标滚轮时，这个属性的值是 3 的倍数。
+    EventUtil.addHandler(window, "DOMMouseScroll", function(event){     
+        event = EventUtil.getEvent(event);     
+        alert(event.detail); 
+    }); 
+ 
+
+    var textbox = document.getElementById("myText"); 
+    EventUtil.addHandler(textbox, "keypress", function(event){     
+        event = EventUtil.getEvent(event); 
+        alert(EventUtil.getCharCode(event)); 
+     }); 
+ 
+
+    //在此，首先使用 EventUtil.getEvent()取得了 event 对象，然后又将其传入到 EventUtil. stopPropagation()。
+    //别忘了由于 IE不支持事件捕获，因此这个方法在跨浏览器的情况下，也只能用 来阻止事件冒泡。
+  </script>
+</body>
+
+</html>

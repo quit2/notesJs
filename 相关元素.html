@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 90%;
+        height: 500px;
+        margin: 10px auto 0;
+        background: #e2e2e2;
+      }
+    </style>
+</head>
+
+<body>
+  <div id="myDiv"></div>
+  <script type="text/javascript">
+    var EventUtil = {       
+        addHandler: function(element, type, handler){
+            if (element.addEventListener){
+                element.addEventListener(type, handler, false);  
+            }else if (element.attachEvent){
+                element.attachEvent("on" + type, handler);     
+            }else {    
+                element["on" + type] = handler;     
+            }     
+        }, 
+     
+        getEvent: function(event){         
+            return event ? event : window.event;     
+        }, 
+     
+        getTarget: function(event){         
+            return event.target || event.srcElement;     
+        }, 
+        getRelatedTarget: function(event){         
+            if (event.relatedTarget){             
+                return event.relatedTarget;            
+            }else if (event.toElement){             
+                return event.toElement;         
+            }else if (event.fromElement){             
+                return event.fromElement;         
+            }else {             
+                return null;         
+            }          
+        } 
+    }; 
+
+    var div = document.getElementById("myDiv"); 
+    EventUtil.addHandler(div, "mouseout", function(event){     
+        event = EventUtil.getEvent(event);     
+        var target = EventUtil.getTarget(event);     
+        var relatedTarget = EventUtil.getRelatedTarget(event);    
+        console.log("Moused out of " + target.tagName + " to " + relatedTarget.tagName);
+    });
+    EventUtil.addHandler(div, "mouseover", function(event){     
+        event = EventUtil.getEvent(event);     
+        var target = EventUtil.getTarget(event);     
+        var relatedTarget = EventUtil.getRelatedTarget(event);    
+        console.log("Moused over of " + target.tagName + " from " + relatedTarget.tagName);
+    }); 
+     
+  </script>
+</body>
+
+</html>
