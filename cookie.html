@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 90%;
+        height: 500px;
+        margin: 10px auto 0;
+        background: #e2e2e2;
+      }
+    </style>
+</head>
+
+<body>
+  <div id="myDiv"></div>
+  <script type="text/javascript">
+    var CookieUtil = {
+        get: function (name){
+            var cookieName = encodeURIComponent(name) + "=",
+            cookieStart = document.cookie.indexOf(cookieName),
+            cookieValue = null;
+            if (cookieStart > -1){
+                var cookieEnd = document.cookie.indexOf(";", cookieStart);
+                if (cookieEnd == -1){
+                    cookieEnd = document.cookie.length;
+                }
+                cookieValue = decodeURIComponent(document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
+            }
+            return cookieValue;
+        },
+        set: function (name, value, expires, path, domain, secure) {
+            var cookieText = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+            if (expires instanceof Date) {
+                cookieText += "; expires=" + expires.toGMTString();
+            }
+            if (path) {
+                cookieText += "; path=" + path;
+            } 
+            if (domain) {
+                cookieText += "; domain=" + domain;
+            }
+            if (secure) {
+                cookieText += "; secure";
+            }
+            document.cookie = cookieText;
+        },
+        unset: function (name, path, domain, secure){
+            this.set(name, "", new Date(0), path, domain, secure);
+        }
+    }; 
+    //设置 cookie
+    CookieUtil.set("name", "Nicholas");
+    CookieUtil.set("book", "Professional JavaScript");
+    //读取 cookie 的值
+    alert(CookieUtil.get("name")); //"Nicholas"
+    alert(CookieUtil.get("book")); //"Professional JavaScript"
+    //删除 cookie
+    CookieUtil.unset("name");
+    CookieUtil.unset("book"); 
+    
+    //设置 cookie，包括它的路径、域、失效日期
+    CookieUtil.set("name", "Nicholas", "/books/projs/", "www.wrox.com", new Date("January 1, 2010"));
+    //删除刚刚设置的 cookie
+    CookieUtil.unset("name", "/books/projs/", "www.wrox.com");
+    //设置安全的 cookie
+    CookieUtil.set("name", "Nicholas", null, null, null, true);
+
+  </script>
+</body>
+
+</html>

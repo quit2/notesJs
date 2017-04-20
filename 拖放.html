@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 100px;
+        height: 100px;
+        background: #e2e2e2;
+      }
+    </style>
+</head>
+
+<body>
+  <div id="myDiv"></div>
+  <script type="text/javascript">
+    var EventUtil = {       
+        addHandler: function(element, type, handler){
+            if (element.addEventListener){
+                element.addEventListener(type, handler, false);  
+            }else if (element.attachEvent){
+                element.attachEvent("on" + type, handler);     
+            }else {    
+                element["on" + type] = handler;     
+            }     
+        }, 
+     
+        getEvent: function(event){         
+            return event ? event : window.event;     
+        }, 
+     
+        getTarget: function(event){         
+            return event.target || event.srcElement;     
+        }, 
+      
+        preventDefault: function(event){       
+            if (event.preventDefault){             
+                event.preventDefault();         
+            } else {             
+                event.returnValue = false;         
+            }     
+        },       
+        removeHandler: function(element, type, handler){
+            if (element.removeEventListener){
+              element.removeEventListener(type, handler, false); 
+            }else if (element.detachEvent){    
+              element.detachEvent("on" + type, handler); 
+            }else {  
+              element["on" + type] = null;   
+            }     
+        },
+         
+        stopPropagation: function(event){
+            if (event.stopPropagation){             
+                event.stopPropagation();         
+            } else {             
+                event.cancelBubble = true;         
+            }     
+        } 
+    }; 
+
+    var DragDrop = function(){
+        var dragging = null;
+            diffX = 0;
+            diffY = 0; 
+        function handleEvent(event){
+            //获取事件和目标
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+             //确定事件类型
+            switch(event.type){
+                case "mousedown":
+                    if (target.className.indexOf("draggable") > -1){
+                        dragging = target;
+                        diffX = event.clientX - target.offsetLeft;
+                        diffY = event.clientY - target.offsetTop; 
+                    }
+                    break;
+                case "mousemove":
+                    if (dragging !== null){
+                        //指定位置
+                        dragging.style.left = (event.clientX - diffX) + "px";
+                        dragging.style.top = (event.clientY - diffY) + "px"; 
+                    }
+                    break;
+                case "mouseup":
+                    dragging = null;
+                    break;
+            }
+        }; 
+        //公共接口
+        return {
+            enable: function(){
+                EventUtil.addHandler(document, "mousedown", handleEvent);
+                EventUtil.addHandler(document, "mousemove", handleEvent);
+                EventUtil.addHandler(document, "mouseup", handleEvent);
+            },
+            disable: function(){
+                EventUtil.removeHandler(document, "mousedown", handleEvent);
+                EventUtil.removeHandler(document, "mousemove", handleEvent);
+                EventUtil.removeHandler(document, "mouseup", handleEvent);
+            }
+        }
+    }(); 
+
+
+  </script>
+</body>
+
+</html>

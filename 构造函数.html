@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+  <script type="text/javascript">
+    function Person(name, age, job){
+        this.name = name;
+        this.age = age;
+        this.job = job;
+    }
+    /*var person = new Person("Nicholas", 29, "Software Engineer"); 
+    console.log(person.name); //Nicholas
+    console.log(person.age);  //29
+    console.log(person.job);  //Software Engineer*/
+
+    //当没有使用 new操作符来调用该构造函数的情况上。由于该 this 对象是在运行时绑定的，所以直接调用 Person()，this 会映射到全局对象 window 上。
+    
+    var person = Person("Nicholas", 29, "Software Engineer");
+    alert(window.name); //"Nicholas"
+    alert(window.age); //29
+    alert(window.job); //"Software Engineer" 
+  </script>
+</body>
+
+</html>
