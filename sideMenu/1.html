@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .sidemenu {
+        width: 100px;
+        height: 100px;
+        background: red;
+        text-align: center;
+        cursor: pointer;
+      }
+    </style>
+</head>
+
+<body>
+  <div class="sidemenu" id="sidemenu">提交</div>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript">
+    $("#sidemenu").click(function(){
+      console.log(1);
+      return false;
+    })
+  </script>
+</body>
+</html>
