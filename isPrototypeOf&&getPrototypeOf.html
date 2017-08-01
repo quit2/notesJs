@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+  <script type="text/javascript">
+    function A() {
+
+    }
+    var a = new A();
+    console.log(A.prototype.isPrototypeOf(a));//a的原型链中是否继承了A的prototype   true
+    console.log(Object.prototype.isPrototypeOf(A));//true
+    console.log(Object.prototype.isPrototypeOf(a));//true
+    //isPrototypeOf的确是判断对象中的原型链是否继承了prototype。
+
+
+    function Fn() {
+
+    }
+    var fn = new Fn();
+    //通过getPrototypeOf静态方法，获得对象fn的prototype
+    var proto = Object.getPrototypeOf(fn);
+    //将获得的prototype添加一个name属性，并赋值
+    proto.name = 'Monkey';
+    console.log(fn.name); //Monkey
+    //判断proto是否是Fn.prototype
+    console.log( 'proto === Fn.prototype? ' + (proto === Fn.prototype) );//proto === Fn.prototype? true
+    //判断fn的__proto__是否指向了prototype
+    console.log( proto.isPrototypeOf(fn)); //true
+
+    //getPrototypeOf，的确是返回对象__proto__指向的prototype。
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    /*function foo(){
+      console.log(a);   // 输出 2
+    }
+    function bar(){
+      let a = 3;
+      foo();
+    }
+    let a = 2;
+    bar();*/   
+
+
+   /* function foo() {
+      console.log(this.a)   // 输出 2
+    }
+    var a = 2;  //  变量声明到全局对象中
+    foo();*/     
+                                          //「默认绑定」
+
+    /*function foo() {
+      console.log(this.a);
+    }
+    let obj1 = {
+      a: 1,
+      foo,
+    };
+    let obj2 = {
+      a: 2,
+      foo,
+    }
+    obj1.foo();   // 输出 1
+    obj2.foo();   // 输出 2*/                         //「隐式绑定」
+
+
+    /*function foo() {
+      console.log(this.a);  // 输出 1
+      bar.apply({a: 2}, arguments);    //apply(this, [arg1, arg2, ...])
+      //apply() 接收参数的形式，有助于函数嵌套函数的时候，把 arguments 变量传递到下一层函数中。
+    }
+    function bar(b) {
+        console.log(b); //3
+        console.log(this.a + b);  // 输出 5
+    }
+    var a = 1;
+    foo(3);*/                                         //「显式绑定」
+
+
+    function New(Constructor, ...args){
+        let obj = {};   // 创建一个新对象
+        Object.setPrototypeOf(obj, Constructor.prototype);  // 连接新对象与函数的原型
+        return Constructor.apply(obj, args) || obj;   // 执行函数，改变 this 指向新的对象
+    }
+    function Foo(a){
+        this.a = a;
+        console.log(a);//1
+    }
+    New(Foo, 1);  // Foo { a: 1 }                      //「new 绑定」
+
+
+    //优先级
+    //「new 绑定」>「显式绑定」>「隐式绑定」>「默认绑定」
+    //this 并不是在编写的时候绑定的，而是在运行时绑定的。它的上下文取决于函数调用时的各种条件。
+    //this 的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。
+    //当一个函数被调用时，会创建一个「执行上下文」，这个上下文会包含函数在哪里被调用（调用栈）、函数的调用方式、传入的参数等信息。this 就是这个记录的一个属性，会在函数执行的过程中用到。
+
+  </script>
+</body>
+
+</html>

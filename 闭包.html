@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+  <p id="help">Helpful notes will appear here</p>
+  <p>E-mail: <input type="text" id="email" name="email"></p>
+  <p>Name: <input type="text" id="name" name="name"></p>
+  <p>Age: <input type="text" id="age" name="age"></p>
+  <script>
+    function showHelp(help) {
+      document.getElementById('help').innerHTML = help;
+    }
+    //闭包
+    function makeHelpCallback(help) {
+      return function() {
+        showHelp(help);
+      };
+    }
+
+    function setupHelp() {
+      var helpText = [
+        {'id': 'email', 'help': 'Your E-mail address'},
+        {'id': 'name', 'help': 'Your full name'},
+        {'id': 'age', 'help': 'Your age (you must be over 16'}
+      ];
+
+      for(var i = 0; i < helpText.length; i++){
+        //闭包
+        /*var item = helpText[i];
+        document.getElementById(item.id).onfocus = makeHelpCallback(item.help);*/
+
+        (function() {
+          var item = helpText[i];
+          console.log(item.id);
+          document.getElementById(item.id).onfocus = function() {
+            showHelp(item.help);
+          }
+        })();
+        
+      }
+    }
+    setupHelp();
+  </script>
+</body>
+
+</html>

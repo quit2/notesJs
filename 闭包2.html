@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+  <script>
+    var person = function(){    
+      //变量作用域为函数内部，外部无法访问    
+      var name = "default";       
+         
+      return {    
+        getName : function(){    
+          return name;    
+        },    
+        setName : function(newName){    
+          name = newName;    
+        }    
+      }    
+    }(); 
+             
+    console.log(person.name);//直接访问，结果为undefined    
+    console.log(person.getName());//default  
+    person.setName("abruzzi");    
+    console.log(person.getName()); //abruzzi
+  </script>
+</body>
+
+</html>
